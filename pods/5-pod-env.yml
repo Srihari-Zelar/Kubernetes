@@ -1,0 +1,34 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: sample5
+spec:
+  containers:
+    - name: centos
+      image: centos:7
+      command:
+        - sleep
+        - "100000"
+      envFrom:
+        - configMapRef:
+            name: sample-meta
+      env:
+        - name: URL
+          #value: google.com
+          valueFrom:
+            configMapKeyRef:
+              key: URL
+              name: sample-meta
+
+
+
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: sample-meta
+data:
+  URL: yahoo.com
+  ENV: dev
+  PROJECT: sample
